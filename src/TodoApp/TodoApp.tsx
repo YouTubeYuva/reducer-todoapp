@@ -1,8 +1,11 @@
-/* import React, { useReducer } from "react";
+import React, { useReducer } from "react";
 import _ from "lodash";
+import { Header } from "./Header";
+import { Body } from "./Body";
+import { Footer } from "./Footer";
 import "./td.css";
 
-interface Data {
+export interface Data {
   id: number;
   value: string;
   completed: boolean;
@@ -87,89 +90,7 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-const Header: React.FC<{
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  onSelectAll: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  allCompleted: boolean;
-}> = ({ value, onChange, onKeyPress, onSelectAll, allCompleted }) => {
-  return (
-    <div className="header">
-      <h1>todos</h1>
-      <div className="div_input">
-        <input
-          className="check"
-          type="checkbox"
-          id="checkAll"
-          onChange={onSelectAll}
-          checked={allCompleted}
-        />
-        <div>
-          <input
-            type="text"
-            value={value}
-            onKeyDown={onKeyPress}
-            onChange={onChange}
-            placeholder="What needs to be done?"
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Body Component
-const Body: React.FC<{
-  todos: Data[];
-  onToggle: (id: number) => void;
-  onRemove: (id: number) => void;
-}> = ({ todos, onToggle, onRemove }) => {
-  return (
-    <div>
-      {_.map(todos, (item) => (
-        <div key={item.id} className="todo-item">
-          <input
-            type="checkbox"
-            checked={item.completed}
-            onChange={() => onToggle(item.id)}
-          />
-          <span>{item.value}</span>
-          <button className="todo-remove" onClick={() => onRemove(item.id)}>
-            x
-          </button>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-// Footer Component
-const Footer: React.FC<{
-  remainingItems: number;
-  onFilterChange: (option: Todo) => void;
-  onClearCompleted: () => void;
-}> = ({ remainingItems, onFilterChange, onClearCompleted }) => {
-  return (
-    <div className="footer">
-      <span className="todo-count">{remainingItems} items left</span>
-      <button className="todo-all" onClick={() => onFilterChange("all")}>
-        All
-      </button>
-      <button className="todo-active" onClick={() => onFilterChange("active")}>
-        Active
-      </button>
-      <button className="todo-completed" onClick={() => onFilterChange("completed")}>
-        Completed
-      </button>
-      <button className="todo-clear-completed" onClick={onClearCompleted}>
-        Clear Completed
-      </button>
-    </div>
-  );
-};
-
-export default function TodoApp() {
+export const TodoApp = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -215,17 +136,17 @@ export default function TodoApp() {
     <div>
       <Header
         value={state.value}
-        onChange={handleChange}
-        onKeyPress={handleKeyPress}
-        onSelectAll={handleSelectAll}
+        handleChange={handleChange}
+        handleKeyPress={handleKeyPress}
+        handleSelectAll={handleSelectAll}
         allCompleted={allCompleted}
       />
-      <Body todos={filteredData} onToggle={handleCheckbox} onRemove={handleRemove} />
+      <Body filteredData={filteredData} handleCheckbox={handleCheckbox} handleRemove={handleRemove} />
       <Footer
-        remainingItems={_.filter(state.data, (item) => !item.completed).length}
-        onFilterChange={handleClick}
-        onClearCompleted={() => dispatch({ type: "CLEAR_COMPLETED" })}
+        length={_.filter(state.data, (item) => !item.completed).length}
+        handleClick={handleClick}
+        ClearCompleted={() => dispatch({ type: "CLEAR_COMPLETED" })}
       />
     </div>
   );
-} */
+};

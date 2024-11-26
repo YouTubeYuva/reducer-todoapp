@@ -1,0 +1,29 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 360px;
+    padding: 10px;
+    color: black;
+    background-color: rgb(255, 255, 255);
+    font-size: 14px; 
+  }
+  
+  .todo-all,
+  .todo-active,
+  .todo-completed {
+    padding: 5px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+  }
+  
+  .todo-all:hover,
+  .todo-active:hover,
+  .todo-completed:hover {
+    border: 2px solid rgb(184, 63, 69);
+  }
+  
+  .todo-clear-completed {
+    border: none;
+    background-color: rgb(255, 255, 255);
+  }
